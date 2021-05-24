@@ -18,7 +18,7 @@
         </div>
  
         <div v-if="text" class="output">
-            <img :src="newQRCode" alt="QRCode" id="qr">
+            <img :src="newQRCode" alt="QRCode" id="qr" download="qrcode.png">
         </div>
         <button v-if="text" style="margin: 10px 0px; padding: 10px 20px; font-size: 1.4rem; border-radius: 5px; color: #FFF; background-color: rgb(53, 53, 53);" @click="baixarImagem">Baixar</button>
         <button v-if="text" style="margin: 10px 0px; padding: 10px 20px; font-size: 1.4rem; border-radius: 5px; color: #FFF; background-color: rgb(53, 53, 53);" @click="reload">Novo</button>
@@ -45,7 +45,8 @@
             data: {
                 title: 'Gerador QRCode',
                 text: '',
-                qrcode: new QRious({ size: 300 })
+                qrcode: new QRious({ size: 300 }),
+                name: 'QRC'
             },
             computed: {
                 newQRCode() {
@@ -60,7 +61,7 @@
                         let a = document.createElement('a');
                         a.href = i.src;
                         console.log(i);
-                        a.download = i.src;
+                        a.download = i.alt; /* Nome no arquivo */
                         document.body.appendChild(a);
                         a.click();
                         document.body.removeChild(a);
