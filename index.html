@@ -18,8 +18,11 @@
         </div>
  
         <div v-if="text" class="output">
-            <img :src="newQRCode" alt="QRCode">
+            <img :src="newQRCode" alt="QRCode" id="qr">
         </div>
+        <button v-if="text" style="margin: 10px 0px; padding: 10px 20px; font-size: 1.4rem; border-radius: 5px; color: #FFF; background-color: rgb(53, 53, 53);" @click="baixarImagem">Baixar</button>
+        <button v-if="text" style="margin: 10px 0px; padding: 10px 20px; font-size: 1.4rem; border-radius: 5px; color: #FFF; background-color: rgb(53, 53, 53);" @click="reload">Novo</button>
+        <footer class="footer">
         <footer class="footer">
             Contato Pelas Redes Abaixo
             <p class="footer">
@@ -50,15 +53,25 @@
                     return this.qrcode.toDataURL()
                 }
             },
-/* 
-            //Refatorado!
             methods: {
-                onData(event) {
-                    this.text = event.target.value
-                }
-            }
-
- */            
+                baixarImagem() {
+                    let images = document.querySelectorAll('img#qr');
+                    for (let i of images){
+                        let a = document.createElement('a');
+                        a.href = i.src;
+                        console.log(i);
+                        a.download = i.src;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    }
+                },
+                reload() {
+                    window.location=document.URL
+                },
+            
+                
+            }           
         })
     </script>
 </body>
